@@ -1,0 +1,10 @@
+{
+  "name": "SkillGap AI",
+  "short_name": "SkillGapAI",
+  "description": "AI-powered career skill gap analysis — no API key required",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080a0c",
+  "theme_color": "#f5a623",
+  "icons": [{ "src": "favicon.png", "sizes": "192x192", "type": "image/png" }]
+}

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillGap AI — Career Intelligence Platform</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/vendors.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">SkillGap<em>AI</em></span>
+      </div>
+      <nav class="header-nav">
+        <a href="#upload-section">Upload</a>
+        <a href="#analysis-section">Analysis</a>
+        <a href="#roadmap-section">Roadmap</a>
+      </nav>
+      <button class="btn-ghost" id="chatbotToggle">💬 AI Guide</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">✦ No API Key Required · 100% Free</div>
+      <h1 class="hero-title">
+        Discover Your<br/>
+        <span class="gradient-text">Skill Gaps.</span><br/>
+        Bridge Them Fast.
+      </h1>
+      <p class="hero-sub">
+        Upload your resume, get an instant AI-powered skill analysis,
+        see exactly where you stand, and receive a personalised learning roadmap — completely free.
+      </p>
+      <a href="#upload-section" class="btn-primary">
+        <span>Start Free Analysis</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card card-1">
+        <div class="fc-label">Match Score</div>
+        <div class="fc-value">87<span>%</span></div>
+        <div class="fc-bar"><div class="fc-fill" style="width:87%"></div></div>
+      </div>
+      <div class="floating-card card-2">
+        <div class="fc-label">Skills Found</div>
+        <div class="fc-value">24</div>
+        <div class="fc-tags">
+          <span class="tag">Python</span><span class="tag">ML</span><span class="tag">SQL</span>
+        </div>
+      </div>
+      <div class="floating-card card-3">
+        <div class="fc-label">Gap Areas</div>
+        <div class="fc-value">5</div>
+        <div class="fc-sub">courses recommended</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="section-inner">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Three steps to your roadmap</h2>
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-title">Upload Resume</div>
+          <div class="step-desc">Drop your resume (PDF, DOC, DOCX, image). Our engine reads and parses every word.</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-title">AI Analysis</div>
+          <div class="step-desc">Built-in NLP extracts skills, detects gaps, and matches you to real job roles instantly.</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-title">Get Roadmap</div>
+          <div class="step-desc">Receive curated courses, certifications, and a personalised career roadmap to close your gaps.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPLOAD SECTION -->
+  <section class="section" id="upload-section">
+    <div class="section-inner">
+      <div class="section-label">Step 01</div>
+      <h2 class="section-title">Upload Your Resume</h2>
+      <p class="section-desc">Accepts PDF, DOC, DOCX, PNG, JPG. Max 10 MB. No account needed.</p>
+
+      <div class="upload-zone" id="dropZone">
+        <div class="upload-icon">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <p class="upload-hint">Drag & drop your resume here</p>
+        <p class="upload-hint-or">— or —</p>
+        <label class="btn-outline" for="fileInput">Browse File</label>
+        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt" hidden />
+        <p class="upload-formats">PDF · DOC · DOCX · PNG · JPG · TXT</p>
+      </div>
+
+      <div class="file-preview" id="filePreview" style="display:none">
+        <div class="file-info">
+          <span class="file-icon" id="fileIcon">📄</span>
+          <div>
+            <div class="file-name" id="fileName"></div>
+            <div class="file-size" id="fileSize"></div>
+          </div>
+        </div>
+        <button class="btn-remove" id="removeFile" title="Remove file">✕</button>
+      </div>
+
+      <div class="error-msg" id="uploadError" style="display:none"></div>
+
+      <!-- Progress Bar -->
+      <div class="progress-wrapper" id="uploadProgress" style="display:none">
+        <div class="progress-header">
+          <span class="progress-label" id="progressLabel">Uploading…</span>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-steps">
+          <span class="pstep" id="step-upload">📤 Upload</span>
+          <span class="pstep" id="step-analyze">🔍 Analyze</span>
+          <span class="pstep" id="step-extract">⚡ Extract Skills</span>
+        </div>
+      </div>
+
+      <!-- Job Goal -->
+      <div class="job-goal-box" id="jobGoalBox" style="display:none">
+        <label class="input-label">What's your target job role? <span class="optional">(optional)</span></label>
+        <div class="input-row">
+          <input type="text" id="jobGoalInput" class="text-input"
+            placeholder="e.g. Data Scientist, Frontend Developer, Product Manager…" />
+          <button class="btn-primary" id="analyzeBtn">
+            <span id="analyzeBtnText">Analyse</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <p class="input-hint">💡 Leave blank to get automatic job suggestions based on your resume</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYSIS SECTION -->
+  <section class="section alt-bg" id="analysis-section" style="display:none">
+    <div class="section-inner">
+      <div class="section-label">Step 02</div>
+      <h2 class="section-title">AI Analysis Results</h2>
+
+      <!-- Matching Progress -->
+      <div class="progress-wrapper" id="matchProgress" style="display:none">
+        <div class="progress-header">
+          <span class="progress-label" id="matchLabel">Matching skills…</span>
+          <span class="progress-pct" id="matchPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="matchFill"></div>
+        </div>
+      </div>
+
+      <!-- Candidate Summary -->
+      <div class="candidate-summary" id="candidateSummary" style="display:none">
+        <div class="cs-left">
+          <div class="cs-avatar" id="csAvatar">?</div>
+          <div>
+            <div class="cs-name" id="csName">Candidate</div>
+            <div class="cs-meta" id="csMeta"></div>
+          </div>
+        </div>
+        <div class="cs-tags" id="csTags"></div>
+      </div>
+
+      <!-- Results Grid -->
+      <div class="results-grid" id="resultsGrid" style="display:none">
+
+        <!-- Match Score -->
+        <div class="result-card score-card">
+          <div class="card-header">Overall Match Score</div>
+          <div class="score-ring-wrap">
+            <svg class="score-ring" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border)" stroke-width="10"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="url(#scoreGrad)" stroke-width="10"
+                stroke-dasharray="314" stroke-dashoffset="314" id="scoreArc"
+                stroke-linecap="round" transform="rotate(-90 60 60)"/>
+              <defs>
+                <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="var(--accent)"/>
+                  <stop offset="100%" stop-color="var(--accent2)"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="score-center">
+              <span class="score-num" id="scoreNum">0</span>
+              <span class="score-unit">%</span>
+            </div>
+          </div>
+          <div class="score-label" id="scoreLabel">Calculating…</div>
+          <div class="score-role" id="scoreRole"></div>
+        </div>
+
+        <!-- Detected Skills -->
+        <div class="result-card">
+          <div class="card-header">✅ Detected Skills <span class="count-badge" id="skillCount"></span></div>
+          <div class="skills-cloud" id="detectedSkills"></div>
+        </div>
+
+        <!-- Missing Skills -->
+        <div class="result-card">
+          <div class="card-header">⚠️ Skill Gaps <span class="count-badge red" id="gapCount"></span></div>
+          <div class="skills-cloud missing" id="missingSkills"></div>
+        </div>
+
+        <!-- Suggested Jobs -->
+        <div class="result-card full-width">
+          <div class="card-header">💼 Best-Fit Job Roles</div>
+          <div class="job-cards" id="jobCards"></div>
+        </div>
+
+        <!-- Insights -->
+        <div class="result-card full-width insight-card">
+          <div class="card-header">🧠 AI Career Insights</div>
+          <div class="insight-text" id="insightText"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section class="section" id="recommendations-section" style="display:none">
+    <div class="section-inner">
+      <div class="section-label">Step 03</div>
+      <h2 class="section-title">Learning Recommendations</h2>
+      <p class="section-desc">Real courses, certifications & tutorials to close your skill gaps — free & paid.</p>
+      <div class="rec-filter" id="recFilter"></div>
+      <div class="recommendations-grid" id="recommendationsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="section alt-bg" id="roadmap-section" style="display:none">
+    <div class="section-inner">
+      <div class="section-label">Step 04</div>
+      <h2 class="section-title">Your Career Roadmap</h2>
+      <p class="section-desc" id="roadmapSubtitle"></p>
+      <div class="roadmap-container" id="roadmapContainer"></div>
+    </div>
+  </section>
+
+  <!-- CHATBOT -->
+  <div class="chatbot-panel" id="chatbotPanel">
+    <div class="chat-header">
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <span class="chat-avatar">🤖</span>
+        <div>
+          <div style="font-weight:700;font-size:.9rem">AI Career Guide</div>
+          <div style="font-size:.75rem;color:var(--accent2)">● Online</div>
+        </div>
+      </div>
+      <button id="chatClose">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        Hi! I'm your AI career guide. Upload a resume above to start, or ask me anything about skills, career paths, and learning resources!
+      </div>
+    </div>
+    <div class="chat-suggestions" id="chatSuggestions">
+      <button class="chat-chip" onclick="askChat('What skills are most in demand in 2025?')">Skills in demand 2025</button>
+      <button class="chat-chip" onclick="askChat('How do I switch from marketing to data science?')">Career switch tips</button>
+      <button class="chat-chip" onclick="askChat('How long to learn Python?')">How long to learn Python?</button>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Ask me anything…" />
+      <button id="chatSend">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="chatbot-fab" id="chatFab">💬</button>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo"><span class="logo-icon">◈</span><span class="logo-text">SkillGap<em>AI</em></span></div>
+      <p>AI-powered career intelligence. No API key required. 100% free.</p>
+      <p style="color:var(--text-muted);font-size:.8rem;margin-top:.5rem">Built with ❤️ · Open source</p>
+    </div>
+  </footer>
+
+  <!-- Scripts — order matters -->
+  <script src="config/frontend-config.js"></script>
+  <script src="js/skillDatabase.js"></script>
+  <script src="js/progressBar.js"></script>
+  <script src="js/resumeUpload.js"></script>
+  <script src="js/resumeParser.js"></script>
+  <script src="js/skillAnalysis.js"></script>
+  <script src="js/jobMatching.js"></script>
+  <script src="js/recommendations.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

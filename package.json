@@ -1,0 +1,18 @@
+{
+  "name": "skillgap-ai",
+  "version": "2.0.0",
+  "description": "AI-powered Skill Gap Analysis — no API key required",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
